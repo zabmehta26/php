@@ -51,6 +51,8 @@ $fname=$_POST['fname'];
 if(!preg_match('/^[a-zA-Z]*$/',$fname)){
   $err = "Use only alphabetical characters in firstname" ;
   echo $err;
+  echo "<br>";
+  include('2.php');
   return;
 }
 $lname=$_POST['lname'];
@@ -58,6 +60,8 @@ $lname=$_POST['lname'];
 if(!preg_match('/^[a-zA-Z]*$/',$lname)){
   $err = "Use only alphabetical characters in lastname" ;
   echo $err;
+  echo "<br>";
+  include('2.php');
   return;
 }
 $number=$_POST['number'];
@@ -65,6 +69,8 @@ $number=$_POST['number'];
 if(!preg_match('/^[0-9]{10}$/',$number)){
   $err = "Enter a valid number" ;
   echo $err;
+  echo "<br>";
+  include('2.php');
   return;
 }
 $email =$_POST['email'];
@@ -72,6 +78,8 @@ $email =$_POST['email'];
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $err = "Invalid email format";
   echo $err;
+  echo "<br>";
+  include('2.php');
   return;
 }
 $marks=$_POST['marks'];
@@ -86,6 +94,8 @@ for($i=0;$i<$lines;$i++){
  if(!preg_match('/^[a-zA-Z]*[|][0-9]{2,3}$/',$marks2[$i])){
   $err = "Marks should be in the form: subject_name|makrs" ;
   echo $err;
+  echo "<br>";
+  include('2.php');
   return;
  }
  //the below code will be processed only if everything is validated correctly
@@ -107,8 +117,9 @@ for($i=0;$i<$lines;$i++){
     echo "</tr>";
   }
   echo "</table>";
+  if(!empty($iname)){
   move_uploaded_file($tname,'pic/'.$iname);
-  echo "<br><br><img src=pic/$iname height=200 width=200>";
+  echo "<br><br><img src=pic/$iname height=200 width=200>";}
   $flag=1;
   break;
  }
@@ -138,8 +149,8 @@ if($flag==1){
 
   //database work
   $servername = "localhost";
-  $username = "id12192713_zab";
-  $password = "blaaa";
+  $username = "root";
+  $password = "";
   // Create connection
   $conn = mysqli_connect($servername, $username, $password);
   // Check connection
@@ -151,6 +162,8 @@ if($flag==1){
   mysqli_select_db($conn, "id12192713_mydb");
 
   //inserting data
+  include('db.php');
+  mysqli_select_db($conn, "myDB");
   $sql = "INSERT INTO detail (firstname, lastname, phone_no, email, img)
   VALUES ('$fname', '$lname', '$number', '$email', '$file_name')";
   if ($conn->multi_query($sql) === TRUE) {

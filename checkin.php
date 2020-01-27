@@ -11,12 +11,15 @@ $lines=count($pswd_chk_arr_1);
 for($i=0;$i<$lines;$i++){
   $pswd_chk_arr_2[$i]=explode("|",$pswd_chk_arr_1[$i]);
 }
+print_r($pswd_chk_arr_2);
+
 //below code is checking for mail validation and password setting plus checking
 if(isset($_SESSION['id'])){
   for($i=0;$i<$lines;$i++){
     if($_SESSION['id']==$pswd_chk_arr_2[$i][0]){
       $password=$pswd_chk_arr_2[$i][1];
     }
+    //else{$password="0";}
   }
   if($_SESSION['password'] == $password){
   header('Location: 2.php');
